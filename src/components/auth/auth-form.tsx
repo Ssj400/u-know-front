@@ -32,7 +32,7 @@ export default function AuthForm({ isLogin }: AuthFormProps) {
       const res = await api.post(url, data);
       if (res.status === 201) {
         Cookies.set('token', res.data.token);
-        router.push('/main/posts');
+        router.push('/main');
       }
     } catch (error) {
 
