@@ -99,7 +99,7 @@ export default function LandingPage() {
           </Link>
         </div>
 
-        <div className="w-full flex flex-row items-center justify-around gap-4 mt-30">
+        <div className="w-full flex flex-row items-center justify-around gap-4 mt-60">
           <StepBox
           title="Step 1: Sign up for free"
           description="Create your accounts in just a few clicks"
@@ -113,7 +113,7 @@ export default function LandingPage() {
           description="Enjoy all our features and connect with others!"
           />
         </div>
-        <div className="w-full flex justify-center items-center gap-6 mt-10">
+        <div className="w-full flex justify-center items-center gap-6 mt-50">
           <Link href="/auth/register" className="py-3 px-6 bg-white text-black rounded-full font-semibold shadow hover:bg-gray-200 transition-colors">
             Join
           </Link>
