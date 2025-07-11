@@ -3,10 +3,12 @@ import Navbar from "@/components/navbar";
 import Image from "next/image";
 import FeatureBox from "@/components/feature-box";
 import StepBox from "@/components/steps-box"
+import AuthRedirect from "@/components/auth/auth-redirect";
 
 export default function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <AuthRedirect />
       <Navbar />
 
       <main className="flex-grow flex flex-col items-center justify-center00 text-white">

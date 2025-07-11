@@ -30,9 +30,9 @@ export default function AuthForm({ isLogin }: AuthFormProps) {
 
     try {
       const res = await api.post(url, data);
-      if (res.status === 201) {
+      if (res.status === 201 || res.status === 200) {
         Cookies.set('token', res.data.token);
-        router.push('/main');
+        router.push('/main/dashboard');
       }
     } catch (error) {
 
