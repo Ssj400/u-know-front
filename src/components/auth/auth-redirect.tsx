@@ -9,7 +9,7 @@ const AuthRedirect = () => {
 
   useEffect(() => {
     const token = Cookies.get('token');
-    if (token) {
+    if (token && token !== undefined) {
       router.push('/main/dashboard');
     }
   }, [router]);

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import InfoButton from '@/components/ui/info-button/info-button';
 
 export default function Navbar() {
   return (
@@ -26,12 +27,7 @@ export default function Navbar() {
         </ul>
       </nav>
       <div className="flex-1 flex justify-end">
-        <Link
-          href="/auth/login"
-          className="text-lg hover:text-blue-400 transition-colors bg-gray-200 text-black px-4 py-2 rounded-md"
-        >
-          Sign up
-        </Link>
+        <InfoButton />
       </div>
     </header>
   );
