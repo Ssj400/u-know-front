@@ -10,8 +10,8 @@ export default function InfoButton() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    setIsLoggedIn(!!token && token !== undefined);
+    const access_token = Cookies.get('access_token');
+    setIsLoggedIn(!!access_token && access_token !== undefined);
 
   }, []);
 
