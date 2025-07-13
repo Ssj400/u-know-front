@@ -1,9 +1,11 @@
 import React from "react";
 
+
 export default function AddPostButton() {
+
     return (
         <button
-            onClick={() => window.location.href = "/main/posts/create"}
+            onClick={() => window.location.href =  "/main/posts/create"}
             style={{
                 position: "fixed",
                 right: "2rem",
