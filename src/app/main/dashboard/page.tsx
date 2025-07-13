@@ -1,15 +1,24 @@
 import Navbar from "@/components/navbar";
 import React from "react";
+import WelcomeWidget from "@/components/widgets/welcome-widget";
+import QuickActionsWidget from "@/components/widgets/quick-actions-widget";
+import RecentActivityWidget from "@/components/widgets/recent-activity-widget";
 import UserWidget from "@/components/widgets/user-widget";
 
 const DashboardPage = () => {
   return (
-    <div>
-      <Navbar></Navbar>
+    <div className="bg-gray-900 min-h-screen">
+      <Navbar />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-          <UserWidget />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="md:col-span-2 space-y-8">
+            <WelcomeWidget />
+            <RecentActivityWidget />
+          </div>
+          <div className="space-y-8">
+            <UserWidget />
+            <QuickActionsWidget />
+          </div>
         </div>
       </div>
     </div>
