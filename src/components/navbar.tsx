@@ -10,7 +10,7 @@ export default function Navbar() {
       <nav className="flex-1 flex justify-center">
         <ul className="flex space-x-30">
           <li>
-            <Link href="/" className="text-lg hover:text-blue-400 transition-colors">
+            <Link href="/main/dashboard" className="text-lg hover:text-blue-400 transition-colors">
               Home
             </Link>
           </li>
