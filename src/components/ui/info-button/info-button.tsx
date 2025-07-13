@@ -10,7 +10,6 @@ export default function InfoButton() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Placeholder for auth check. In a real app, you'd use a proper auth context.
     const token = Cookies.get('token');
     setIsLoggedIn(!!token && token !== undefined);
 
