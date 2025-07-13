@@ -20,3 +20,4 @@ export interface PostForm {
     content: string;
     categoryId: number;
 }
+
