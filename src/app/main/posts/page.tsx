@@ -20,7 +20,7 @@ export default function PostsPage() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-gray-900 min-h-screen">
       <Navbar></Navbar>
       <div className="p-6 space-y-4">
         <AddPostButton />

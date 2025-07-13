@@ -7,7 +7,7 @@ import AuthRedirect from "@/components/auth/auth-redirect";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="min-h-screen flex flex-col bg-gray-900 text-foreground">
       <AuthRedirect />
       <Navbar />
 
