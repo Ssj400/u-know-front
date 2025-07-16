@@ -1,11 +1,16 @@
+"use client";
+
 import Navbar from "@/components/navbar";
 import React from "react";
 import WelcomeWidget from "@/components/widgets/welcome-widget";
 import QuickActionsWidget from "@/components/widgets/quick-actions-widget";
 import RecentActivityWidget from "@/components/widgets/recent-activity-widget";
 import UserWidget from "@/components/widgets/user-widget";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 const DashboardPage = () => {
+  useAuthRedirect()
+
   return (
     <div className="bg-gray-900 min-h-screen">
       <Navbar />
