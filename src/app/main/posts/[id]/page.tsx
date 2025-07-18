@@ -42,7 +42,7 @@ export default function CreatePostPage() {
   }, [id]);
 
   const handleCommentAdded = (newComment: Comments) => {
-    setComments((prevComments) => [...prevComments, newComment]);
+    setComments((prevComments) => [ newComment, ...prevComments]);
   };
 
   if (loading) {
