@@ -1,9 +1,12 @@
+import api from "@/lib/axios";
+import { Comments } from "@/types/comment";
 import React from "react";
 import { useState } from "react";
 
-export default function AddComment() {
+export default function AddComment({ onCommentAdded }: { onCommentAdded: (comment: Comments) => void }) {
   const [comment, setComment] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -11,7 +14,11 @@ export default function AddComment() {
 
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const res = await api.post(`/posts/${ window.location.pathname.split("/").pop()}/comments`, {
+        content: comment,
+      });
+
+      onCommentAdded(res.data);
 
       setComment("");
     } catch (error) {

@@ -14,7 +14,7 @@ export default function CreatePostPage() {
   const { id } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<Comments[]>([]);
 
   useEffect(() => {
     async function fetchComments() {
@@ -40,6 +40,10 @@ export default function CreatePostPage() {
     fetchPost();
     fetchComments();
   }, [id]);
+
+  const handleCommentAdded = (newComment: Comments) => {
+    setComments((prevComments) => [...prevComments, newComment]);
+  };
 
   if (loading) {
     return <p className="p-6">Loading...</p>;
@@ -83,7 +87,7 @@ export default function CreatePostPage() {
         </Card>
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-4">Comments</h2>
-          <AddComment />
+          <AddComment onCommentAdded={handleCommentAdded} />
           <br className="my-4" />
           {comments.map((comment: Comments) => {
             return (
