@@ -7,13 +7,25 @@ import Card from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
 import AddComment from "@/components/comments/add-comment";
+import Comment from "@/components/comments/comment";
+import { Comments } from "@/types/comment";
 
 export default function CreatePostPage() {
   const { id } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
+    async function fetchComments() {
+      try {
+        const res = await api.get(`/posts/${id}/comments`);
+        setComments(res.data);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    }
+
     async function fetchPost() {
       try {
         const res = await api.get(`/posts/${id}`);
@@ -26,6 +38,7 @@ export default function CreatePostPage() {
     }
 
     fetchPost();
+    fetchComments();
   }, [id]);
 
   if (loading) {
@@ -71,7 +84,12 @@ export default function CreatePostPage() {
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-4">Comments</h2>
           <AddComment />
-          {/* Here you would map through comments and display them */}
+          <br className="my-4" />
+          {comments.map((comment: Comments) => {
+            return (
+              <Comment key={comment.id} {...comment} />
+            );
+          })}
           </div>
       </div>
     </div>
