@@ -6,6 +6,7 @@ import { Post } from "@/types/post";
 import Card from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
+import AddComment from "@/components/comments/add-comment";
 
 export default function CreatePostPage() {
   const { id } = useParams();
@@ -41,7 +42,7 @@ export default function CreatePostPage() {
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-gray-900 min-h-screen">
         <Navbar></Navbar>
       <div className="p-6 max-w-3xl mx-auto">
         <Card className="p-6 border border-gray-200 shadow-md">
@@ -67,7 +68,13 @@ export default function CreatePostPage() {
             Back
           </button>
         </Card>
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold mb-4">Comments</h2>
+          <AddComment />
+          {/* Here you would map through comments and display them */}
+          </div>
       </div>
     </div>
   );
 }
+
