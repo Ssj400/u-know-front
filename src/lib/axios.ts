@@ -49,11 +49,7 @@ api.interceptors.response.use(
         }
         return Promise.reject(refreshError);
       }
-    } else {
-      window.location.href = "/auth/login";
-      Cookies.remove("access_token");
     }
-
     return Promise.reject(error);
   }
 );
