@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { useFetchUserProfile } from "@/hooks/fetchUserProfile";
 import { updateUserProfile } from "./updateUserProfile";
-
+import { loading } from "@/components/loading";
 
 export default function EditProfile() {
   const { user } = useFetchUserProfile();
@@ -32,17 +32,25 @@ export default function EditProfile() {
 
   return (
     <div className="bg-gray-900 w-[50%] text-white p-6 rounded-lg space-y-4 flex flex-col justify-center h-full">
+    {isLoading ? (
+      loading()) : null}
       <div className="bg-blue-500 text-white rounded-full h-20 w-20 flex items-center justify-center text-4xl font-bold mr-3 self-center mb-4">
         {user?.nickname.charAt(0).toUpperCase()}
       </div>
       <form onSubmit={handleSubmit} className="space-y-4 flex flex-col w-full">
         <label>
           Nickname
-          <Input placeholder={user?.nickname} onChange={(e) => setNickname(e.target.value)} />
+          <Input
+            placeholder={user?.nickname}
+            onChange={(e) => setNickname(e.target.value)}
+          />
         </label>
         <label>
           Email
-          <Input placeholder={user?.email} onChange={(e) => setEmail(e.target.value)} />
+          <Input
+            placeholder={user?.email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </label>
         <label>
           Bio
@@ -55,18 +63,18 @@ export default function EditProfile() {
           Role
           <Input placeholder={user?.role} readOnly />
         </label>
-        {
-          formFilled ? (
-              <button className="bg-blue-500  text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors cursor-pointer active:bg-blue-700">
-          Save Changes
-        </button>
-          ) : (
-            <button className="bg-gray-500 text-white px-4 py-2 rounded cursor-not-allowed" disabled>
-              Save Changes
-            </button>
-          )
-          }
-        
+        {formFilled ? (
+          <button className="bg-blue-500  text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors cursor-pointer active:bg-blue-700">
+            Save Changes
+          </button>
+        ) : (
+          <button
+            className="bg-gray-500 text-white px-4 py-2 rounded cursor-not-allowed"
+            disabled
+          >
+            Save Changes
+          </button>
+        )}
       </form>
     </div>
   );
