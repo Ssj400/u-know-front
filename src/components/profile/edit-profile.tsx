@@ -9,8 +9,8 @@ export default function EditProfile() {
   const [user, setUser] = useState<UserStats | null>(null);
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
-  const [bio , setBio] = useState("");
-  const formFilled = useRef(false);
+  const [bio, setBio] = useState("");
+  const [formFilled, setFormFilled] = useState(false);
 
   useEffect(() => {
     async function fetchUserProfile() {
@@ -22,8 +22,7 @@ export default function EditProfile() {
   }, []);
 
   useEffect(() => {
-    formFilled.current = nickname !== "" || email !== "" || bio !== "";
-    console.log("Form filled status:", formFilled.current);
+    setFormFilled(nickname !== "" || email !== "" || bio !== "");
   }, [nickname, email, bio]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,6 +35,7 @@ export default function EditProfile() {
     };
 
     const data = { ...updatedData };
+    console.log(data)
   };
 
   return (
@@ -64,7 +64,7 @@ export default function EditProfile() {
           <Input placeholder={user?.role} readOnly />
         </label>
         {
-          formFilled.current ? (
+          formFilled ? (
               <button className="bg-blue-500  text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors cursor-pointer active:bg-blue-700">
           Save Changes
         </button>
