@@ -1,25 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import api from "@/lib/axios";
-import { UserStats } from "@/types/user";
+import { useFetchUserProfile } from "@/hooks/fetchUserProfile";
 
 export default function EditProfile() {
-  const [user, setUser] = useState<UserStats | null>(null);
+  const { user } = useFetchUserProfile();
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
   const [formFilled, setFormFilled] = useState(false);
-
-  useEffect(() => {
-    async function fetchUserProfile() {
-      const { data } = await api.get("/users/profile");
-      setUser(data);
-    }
-
-    fetchUserProfile();
-  }, []);
 
   useEffect(() => {
     setFormFilled(nickname !== "" || email !== "" || bio !== "");
