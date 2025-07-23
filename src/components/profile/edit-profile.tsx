@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { useFetchUserProfile } from "@/hooks/fetchUserProfile";
+import { updateUserProfile } from "./updateUserProfile";
+
 
 export default function EditProfile() {
   const { user } = useFetchUserProfile();
@@ -10,6 +12,7 @@ export default function EditProfile() {
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
   const [formFilled, setFormFilled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setFormFilled(nickname !== "" || email !== "" || bio !== "");
@@ -19,13 +22,12 @@ export default function EditProfile() {
     e.preventDefault();
 
     const updatedData = {
-      nickname: nickname !== "" ? nickname : user?.nickname,
-      email: email !== "" ? email : user?.email,
-      bio: bio !== "" ? bio : user?.bio,
+      nickname: nickname !== "" ? nickname : user?.nickname ?? "",
+      email: email !== "" ? email : user?.email ?? "",
+      bio: bio !== "" ? bio : user?.bio ?? "",
     };
 
-    const data = { ...updatedData };
-    console.log(data)
+    await updateUserProfile(updatedData, setIsLoading);
   };
 
   return (
