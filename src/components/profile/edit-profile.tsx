@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { useFetchUserProfile } from "@/hooks/fetchUserProfile";
 import { updateUserProfile } from "./updateUserProfile";
 import { loading } from "@/components/loading";
 
 export default function EditProfile() {
-  const { user } = useFetchUserProfile();
+  const { user, refetch } = useFetchUserProfile();
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
   const [formFilled, setFormFilled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const userChanged = useRef(false);
 
   useEffect(() => {
     setFormFilled(nickname !== "" || email !== "" || bio !== "");
@@ -27,13 +28,21 @@ export default function EditProfile() {
       bio: bio !== "" ? bio : user?.bio ?? "",
     };
 
-    await updateUserProfile(updatedData, setIsLoading);
+    await updateUserProfile(updatedData, setIsLoading, userChanged);
+    refetch();
   };
 
   return (
     <div className="bg-gray-900 w-[50%] text-white p-6 rounded-lg space-y-4 flex flex-col justify-center h-full">
     {isLoading ? (
       loading()) : null}
+      {
+        userChanged.current && (
+          <div className="text-green-500 mb-4 text-center">
+            Profile updated successfully!
+          </div>
+        )
+      }
       <div className="bg-blue-500 text-white rounded-full h-20 w-20 flex items-center justify-center text-4xl font-bold mr-3 self-center mb-4">
         {user?.nickname.charAt(0).toUpperCase()}
       </div>

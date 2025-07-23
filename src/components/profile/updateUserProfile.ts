@@ -8,7 +8,8 @@ type UserData = {
 
 export async function updateUserProfile(
   data: UserData,
-  setIsloading: (loading: boolean) => void
+  setIsloading: (loading: boolean) => void,
+  userChanged: React.MutableRefObject<boolean>
 ) {
   setIsloading(true);
 
@@ -19,6 +20,7 @@ export async function updateUserProfile(
       email: data.email,
       bio: data.bio,
     });
+    userChanged.current = true;
     return response.data;
   } catch (error) {
     console.error("Error updating profile:", error);
