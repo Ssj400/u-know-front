@@ -30,7 +30,11 @@ export default function EditProfile() {
 
     await updateUserProfile(updatedData, setIsLoading, userChanged);
     refetch();
+    setNickname("");
+    setEmail("");
+    setBio("");
   };
+
 
   return (
     <div className="bg-gray-900 w-[50%] text-white p-6 rounded-lg space-y-4 flex flex-col justify-center h-full">
@@ -51,6 +55,7 @@ export default function EditProfile() {
           Nickname
           <Input
             placeholder={user?.nickname}
+            value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
         </label>
@@ -58,6 +63,7 @@ export default function EditProfile() {
           Email
           <Input
             placeholder={user?.email}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
@@ -65,6 +71,7 @@ export default function EditProfile() {
           Bio
           <Input
             placeholder={user?.bio === "" ? "Enter your bio" : user?.bio}
+            value={bio}
             onChange={(e) => setBio(e.target.value)}
           />
         </label>

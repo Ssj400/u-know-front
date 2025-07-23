@@ -14,7 +14,6 @@ export async function updateUserProfile(
   setIsloading(true);
 
   try {
-    console.log(data);
     const response = await api.patch("/users/profile", {
       nickname: data.nickname,
       email: data.email,
