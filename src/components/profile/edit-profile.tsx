@@ -37,7 +37,7 @@ export default function EditProfile() {
 
 
   return (
-    <div className="bg-gray-900 w-[50%] text-white p-6 rounded-lg space-y-4 flex flex-col justify-center h-full">
+    <div className="bg-gray-900 w-full md:w-3/4 lg:w-1/2 xl:w-2/5 text-white p-6 rounded-lg space-y-4 flex flex-col justify-center h-full">
     {isLoading ? (
       loading()) : null}
       {
