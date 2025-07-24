@@ -60,41 +60,47 @@ export default function CreatePostPage() {
 
   return (
     <div className="w-full bg-gray-900 min-h-screen">
-        <Navbar></Navbar>
+      <Navbar />
       <div className="p-6 max-w-3xl mx-auto">
-        <Card className="p-6 border border-gray-200 shadow-md">
-          <div className="text-sm text-gray-500 flex justify-between ">
-            <span className="text-indigo-600 font-medium">
-              {post.category.name}
-            </span>
-            <span>{formattedDate}</span>
-          </div>
-          <h1 className="text-2xl font-bold mt-2">{post.title}</h1>
+        <div
+          className="animate-fade-in-slide-up"
+          style={{ animationDelay: "100ms" }}
+        >
+          <Card className="p-6 border border-gray-200 shadow-md">
+            <div className="text-sm text-gray-500 flex justify-between ">
+              <span className="text-indigo-600 font-medium">
+                {post.category.name}
+              </span>
+              <span>{formattedDate}</span>
+            </div>
+            <h1 className="text-2xl font-bold mt-2">{post.title}</h1>
 
-          <p className="text-gray-500 mt-4 whitespace-pre-line">
-            {post.content}
-          </p>
+            <p className="text-gray-500 mt-4 whitespace-pre-line">
+              {post.content}
+            </p>
 
-          <p className="mt-6 text-sm text-gray-700">
-            By {post.author.nickname} on {formattedDate}
-          </p>
-          <button
-            onClick={() => window.history.back()}
-            className="mt-4 text-sm text-indigo-600 hover:underline"
-          >
-            Back
-          </button>
-        </Card>
-        <div className="mt-8">
+            <p className="mt-6 text-sm text-gray-700">
+              By {post.author.nickname} on {formattedDate}
+            </p>
+            <button
+              onClick={() => window.history.back()}
+              className="mt-4 text-sm text-indigo-600 hover:underline"
+            >
+              Back
+            </button>
+          </Card>
+        </div>
+        <div
+          className="mt-8 animate-fade-in-slide-up"
+          style={{ animationDelay: "200ms" }}
+        >
           <h2 className="text-xl font-semibold mb-4">Comments</h2>
           <AddComment onCommentAdded={handleCommentAdded} />
           <br className="my-4" />
           {comments.map((comment: Comments) => {
-            return (
-              <Comment key={comment.id} {...comment} />
-            );
+            return <Comment key={comment.id} {...comment} />;
           })}
-          </div>
+        </div>
       </div>
     </div>
   );

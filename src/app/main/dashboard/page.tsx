@@ -18,13 +18,38 @@ const DashboardPage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-8">
-            <WelcomeWidget />
-            <RecentActivityWidget />
+            <div
+              className="animate-fade-in-slide-up"
+              style={{ animationDelay: "100ms" }}
+            >
+              <WelcomeWidget />
+            </div>
+            <div
+              className="animate-fade-in-slide-up"
+              style={{ animationDelay: "200ms" }}
+            >
+              <RecentActivityWidget />
+            </div>
           </div>
           <div className="space-y-8">
-            <UserWidget />
-            <QuickActionsWidget />
-            <LastPostWidget />
+            <div
+              className="animate-fade-in-slide-up"
+              style={{ animationDelay: "300ms" }}
+            >
+              <UserWidget />
+            </div>
+            <div
+              className="animate-fade-in-slide-up"
+              style={{ animationDelay: "400ms" }}
+            >
+              <QuickActionsWidget />
+            </div>
+            <div
+              className="animate-fade-in-slide-up"
+              style={{ animationDelay: "500ms" }}
+            >
+              <LastPostWidget />
+            </div>
           </div>
         </div>
       </div>
