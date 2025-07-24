@@ -42,7 +42,7 @@ export default function Navbar() {
         </button>
       </div>
       {isOpen && (
-        <div className="md:hidden absolute top-24 left-0 w-full bg-gray-900">
+        <div className="md:hidden absolute top-24 left-0 w-full bg-gray-900 z-10">
           <ul className="flex flex-col items-center space-y-4 py-4">
             <li className='border-b border-indigo-500 text-center'>
               <Link href="/main/dashboard" className="text-lg hover:text-blue-400 transition-colors" onClick={() => setIsOpen(false)}>
