@@ -1,6 +1,7 @@
 import { Post } from "./post";
 
 export interface UserStats {
+  id: number;
   nickname: string;
   avatarUrl?: string;
   posts: Array<Post>;

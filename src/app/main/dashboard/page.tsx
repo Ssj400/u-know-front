@@ -7,6 +7,7 @@ import QuickActionsWidget from "@/components/widgets/quick-actions-widget";
 import RecentActivityWidget from "@/components/widgets/recent-activity-widget";
 import UserWidget from "@/components/widgets/user-widget";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import { LastPostWidget } from "@/components/widgets/last-post-widget";
 
 const DashboardPage = () => {
   useAuthRedirect()
@@ -23,6 +24,7 @@ const DashboardPage = () => {
           <div className="space-y-8">
             <UserWidget />
             <QuickActionsWidget />
+            <LastPostWidget />
           </div>
         </div>
       </div>
