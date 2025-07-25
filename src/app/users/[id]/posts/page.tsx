@@ -1,30 +1,32 @@
 "use client";
 
-import React from 'react';
-import Navbar from '@/components/navbar';
-import { useParams } from 'next/navigation';
-import { useUserPosts } from '@/hooks/useUserPosts';
-import PostCard from '@/components/post-card';
-
+import React from "react";
+import Navbar from "@/components/navbar";
+import { useParams } from "next/navigation";
+import { useUserPosts } from "@/hooks/useUserPosts";
+import PostCard from "@/components/post-card";
 
 export default function UserPostPage() {
-    const { id } = useParams();
+  const { id } = useParams();
 
-    const { posts, loading, error } = useUserPosts(Number(id));
+  const { posts, loading, error } = useUserPosts(Number(id));
 
-    if (loading) return <p className="p-6 text-gray-500">Loading...</p>;
-    if (error) return <p className="p-6 text-red-500">{error}</p>;
+  if (loading) return <p className="p-6 text-gray-500">Loading...</p>;
+  if (error) return <p className="p-6 text-red-500">{error}</p>;
 
-    return (
-            <div className="bg-gray-900 min-h-screen">
-                <Navbar />
-                <section className="w-full max-w-4xl mx-auto p-6 flex flex-col items-center h-[calc(100vh-100px)]">
-                    {posts.map((post) => (
-                        <PostCard key={post.id} post={post} />
-                    ))}
-                </section>
-            </div>
-    );
+  return (
+    <div className="bg-gray-900 min-h-screen">
+      <Navbar />
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">All User&apos;s Posts</h1>
+        </div>
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </section>
+      </div>
+    </div>
+  );
 }
-
-          

@@ -33,7 +33,7 @@ export const LastPostWidget = () => {
           <PostCard key={post.id} post={post}/>
         ))}
       </div>
-      <button onClick={() => {window.location.href = `/users/${user?.id}/posts`}} className="mt-4 px-4 py-2 w-full bg-blue-600 text-white rounded-md">
+      <button onClick={() => {window.location.href = `/users/${user?.id}/posts`}} className="mt-4 px-4 py-2 w-full bg-blue-600 text-white rounded-md cursor-pointer hover:bg-blue-700 transition-colors hover:shadow-lg">
         View All Posts
       </button>
     </div>
