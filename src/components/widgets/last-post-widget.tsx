@@ -27,12 +27,15 @@ export const LastPostWidget = () => {
 
   return (
     <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold">Last Posts</h2>
+      <h2 className="text-xl font-semibold">Last Post</h2>
       <div className="mt-4 space-y-4">
         {posts.map((post) => (
           <PostCard key={post.id} post={post}/>
         ))}
       </div>
+      <button onClick={() => {window.location.href = `/users/${user?.id}/posts`}} className="mt-4 px-4 py-2 w-full bg-blue-600 text-white rounded-md">
+        View All Posts
+      </button>
     </div>
   );
 }
