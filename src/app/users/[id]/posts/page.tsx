@@ -20,12 +20,17 @@ export default function UserPostPage() {
       <Navbar />
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">All <strong className="text-blue-400">{user?.nickname}</strong> Posts</h1>
+          <h1 className="text-3xl font-bold">All <strong className="text-blue-400">{user?.id == id ? user?.nickname : "User"}</strong> Posts</h1>
         </div>
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
-          ))}
+          {
+          !posts.length ? (
+            <p className="col-span-3 text-gray-500">No posts found.</p>
+          ) : (
+            posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))
+          )}
         </section>
       </div>
     </div>
