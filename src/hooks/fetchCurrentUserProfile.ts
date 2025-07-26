@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import api from "@/lib/axios";
 import { UserStats } from "@/types/user";
 
-export function useFetchUserProfile() {
+export function useFetchCurrentUserProfile() {
   const [user, setUser] = useState<UserStats | null>(null);
 
-  async function fetchUserProfile() {
+  async function fetchCurrentUserProfile() {
     try {
       const { data } = await api.get("/users/profile");
       setUser(data);
@@ -16,8 +16,8 @@ export function useFetchUserProfile() {
   }
 
   useEffect(() => {
-    fetchUserProfile();
+    fetchCurrentUserProfile();
   }, []);
 
-  return { user, refetch: fetchUserProfile };
+  return { user, refetch: fetchCurrentUserProfile };
 }
