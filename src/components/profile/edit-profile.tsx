@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
-import { useFetchUserProfile } from "@/hooks/fetchUserProfile";
+import { useFetchUserProfile } from "@/hooks/fetchCurrentUserProfile";
 import { updateUserProfile } from "./updateUserProfile";
 import { loading } from "@/components/loading";
 

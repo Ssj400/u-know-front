@@ -5,14 +5,17 @@ import Navbar from "@/components/navbar";
 import { useParams } from "next/navigation";
 import { useUserPosts } from "@/hooks/useUserPosts";
 import PostCard from "@/components/post-card";
-import { useFetchUserProfile } from "@/hooks/fetchUserProfile";
 import Loading from "@/components/loading";
+import { useFetchUserProfile } from "@/hooks/useFetchProfile";
 
 export default function UserPostPage() {
   const { id } = useParams();
-  const { user } = useFetchUserProfile();
-  const { posts, loading, error } = useUserPosts(Number(id));
+  const { user } = useFetchUserProfile(String(id));
+  const { posts, loading, error } = useUserPosts(String(id));
 
+  if (!user) {
+    return <p className="p-6 text-red-500">User not found</p>;
+  }
   return (
     <div className="bg-gray-900 min-h-screen">
       <Navbar />
@@ -21,7 +24,7 @@ export default function UserPostPage() {
           <h1 className="text-3xl font-bold">
             All{" "}
             <strong className="text-blue-400">
-              {user?.id == id ? user?.nickname : "User"}
+              {user?.nickname}
             </strong>{" "}
             Posts
           </h1>

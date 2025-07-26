@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Post } from "@/types/post";
 import api from "@/lib/axios";
 
-export const useUserPosts = (userId: number) => {
+export const useUserPosts = (userId: string) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

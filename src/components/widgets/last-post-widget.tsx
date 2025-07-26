@@ -4,10 +4,10 @@ import React, { useEffect } from 'react';
 import { Post } from '@/types/post';
 import PostCard from '@/components/post-card';
 import api from '@/lib/axios';
-import { useFetchUserProfile } from '@/hooks/fetchUserProfile';
+import { useFetchCurrentUserProfile } from '@/hooks/fetchCurrentUserProfile';
 
 export const LastPostWidget = () => {
-  const { user } = useFetchUserProfile();
+  const { user } = useFetchCurrentUserProfile();
   const [posts, setPosts] = React.useState<Post[]>([]);
   
 
