@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
-import { useFetchUserProfile } from "@/hooks/fetchCurrentUserProfile";
+import { useFetchCurrentUserProfile } from "@/hooks/fetchCurrentUserProfile";
 import { updateUserProfile } from "./updateUserProfile";
-import { loading } from "@/components/loading";
+import loading  from "@/components/loading";
 
 export default function EditProfile() {
-  const { user, refetch } = useFetchUserProfile();
+  const { user, refetch } = useFetchCurrentUserProfile();
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
