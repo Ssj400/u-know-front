@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Post } from '@/types/post';
 import PostCard from '@/components/post-card';
 import api from '@/lib/axios';
-import { useFetchCurrentUserProfile } from '@/hooks/usefetchCurrentUserProfile';
+import { useFetchCurrentUserProfile } from '@/hooks/useFetchCurrentUserProfile';
 
 export const LastPostWidget = () => {
   const { user } = useFetchCurrentUserProfile();
