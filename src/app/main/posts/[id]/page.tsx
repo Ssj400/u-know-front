@@ -9,12 +9,15 @@ import Navbar from "@/components/navbar";
 import AddComment from "@/components/comments/add-comment";
 import Comment from "@/components/comments/comment";
 import { Comments } from "@/types/comment";
+import { useFetchCurrentUserProfile } from "@/hooks/useFetchCurrentUserProfile";
+import Loading from "@/components/loading";
 
 export default function CreatePostPage() {
   const { id } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState<Comments[]>([]);
+  const { user } = useFetchCurrentUserProfile();
 
   useEffect(() => {
     async function fetchComments() {
@@ -45,9 +48,6 @@ export default function CreatePostPage() {
     setComments((prevComments) => [ newComment, ...prevComments]);
   };
 
-  if (loading) {
-    return <p className="p-6">Loading...</p>;
-  }
   if (!post) {
     return <p className="p-6 text-red-500">Post not found</p>;
   }
@@ -61,6 +61,7 @@ export default function CreatePostPage() {
   return (
     <div className="w-full bg-gray-900 min-h-screen">
       <Navbar />
+     
       <div className="p-6 max-w-3xl mx-auto">
         <div
           className="animate-fade-in-slide-up"
@@ -84,16 +85,25 @@ export default function CreatePostPage() {
             </p>
             <button
               onClick={() => window.history.back()}
-              className="mt-4 text-sm text-indigo-600 hover:underline"
+              className="mt-4 text-sm text-indigo-600 hover:underline cursor-pointer"
             >
               Back
             </button>
+            {user?.id === post.author.id && (
+              <button
+                onClick={() => window.location.href = `/posts/${post.id}/edit`}
+                className="mt-4 text-sm text-indigo-600 hover:underline ml-4 cursor-pointer"
+              >
+                Edit
+              </button>
+            )}
           </Card>
         </div>
         <div
           className="mt-8 animate-fade-in-slide-up"
           style={{ animationDelay: "200ms" }}
         >
+           {loading && <Loading />}
           <h2 className="text-xl font-semibold mb-4">Comments</h2>
           <AddComment onCommentAdded={handleCommentAdded} />
           <br className="my-4" />
