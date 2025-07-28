@@ -1,5 +1,5 @@
 "use client";
-import CreatePostForm from "@/components/create-post-form";
+import EditPostForm from "@/components/edit-post-form";
 import Navbar from "@/components/navbar";
 
 export default function EditPostPage() {
@@ -11,7 +11,7 @@ export default function EditPostPage() {
           Edit Post
         </h1>
         <div className="max-w-2xl mx-auto bg-black p-8 rounded-lg shadow-md border border-gray-800">
-          <CreatePostForm />
+          <EditPostForm />
         </div>
       </div>
     </div>
