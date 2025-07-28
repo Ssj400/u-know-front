@@ -91,7 +91,7 @@ export default function CreatePostPage() {
             </button>
             {user?.id === post.author.id && (
               <button
-                onClick={() => window.location.href = `/posts/${post.id}/edit`}
+                onClick={() => window.location.href = `/main/posts/${post.id}/edit`}
                 className="mt-4 text-sm text-indigo-600 hover:underline ml-4 cursor-pointer"
               >
                 Edit
