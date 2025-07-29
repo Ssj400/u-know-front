@@ -90,12 +90,26 @@ export default function CreatePostPage() {
               Back
             </button>
             {user?.id === post.author.id && (
+              <>
               <button
                 onClick={() => window.location.href = `/main/posts/${post.id}/edit`}
                 className="mt-4 text-sm text-indigo-600 hover:underline ml-4 cursor-pointer"
               >
                 Edit
               </button>
+              <button
+                onClick={() => {
+                  if (confirm("Are you sure you want to delete this post?")) {
+                    api.delete(`/posts/${post.id}`).then(() => {
+                      window.location.href = "/main/posts";
+                    });
+                  }
+                }}
+                className="mt-4 text-sm text-red-600 hover:underline ml-4 cursor-pointer"
+              >
+                Delete
+              </button>
+              </>
             )}
           </Card>
         </div>
