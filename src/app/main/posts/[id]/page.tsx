@@ -58,6 +58,8 @@ export default function CreatePostPage() {
     day: "numeric",
   });
 
+  const isAuthorized = user?.id === post.author.id || user?.role === "ADMIN";
+
   return (
     <div className="w-full bg-gray-900 min-h-screen">
       <Navbar />
@@ -89,7 +91,7 @@ export default function CreatePostPage() {
             >
               Back
             </button>
-            {user?.id === post.author.id && (
+            {isAuthorized && (
               <>
               <button
                 onClick={() => window.location.href = `/main/posts/${post.id}/edit`}
