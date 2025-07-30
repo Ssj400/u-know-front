@@ -120,7 +120,7 @@ export default function LandingPage() {
           <Link href="/auth/register" className="py-3 px-6 bg-white text-black rounded-full font-semibold shadow hover:bg-gray-200 transition-colors">
             Join
           </Link>
-          <Link href="/explore" className="py-3 px-6 bg-transparent border border-white text-white rounded-full font-semibold hover:bg-white hover:text-black transition-colors">
+          <Link href="/main/posts" className="py-3 px-6 bg-transparent border border-white text-white rounded-full font-semibold hover:bg-white hover:text-black transition-colors">
             Explore
           </Link>
         </div>

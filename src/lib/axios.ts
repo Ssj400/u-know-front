@@ -19,7 +19,11 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (
+      error.response.status === 401 &&
+      !originalRequest._retry &&
+      originalRequest.url !== "/auth/logout"
+    ) {
       originalRequest._retry = true;
 
       try {
@@ -39,9 +43,9 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         try {
-          await api.post("/auth/logout", {}, { withCredentials: true });
           Cookies.remove("access_token");
           window.location.href = "/auth/login";
+          await api.post("/auth/logout", {}, { withCredentials: true });
         } catch (logoutError) {
           console.error("Logout failed:", logoutError);
         }
