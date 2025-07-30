@@ -25,8 +25,8 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href="/contact" className="text-lg hover:text-blue-400 transition-colors">
-              Contact
+            <Link href="/users" className="text-lg hover:text-blue-400 transition-colors">
+              Users
             </Link>
           </li>
         </ul>

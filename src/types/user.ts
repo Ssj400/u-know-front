@@ -1,6 +1,6 @@
 import { Post } from "./post";
 
-export interface UserStats {
+export type UserStats = {
   id: number;
   nickname: string;
   avatarUrl?: string;
@@ -11,4 +11,4 @@ export interface UserStats {
   createdAt: string;
   updatedAt: string;
   email: string;
-}
+};
