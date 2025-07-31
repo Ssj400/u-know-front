@@ -11,12 +11,21 @@ import Comment from "@/components/comments/comment";
 import { Comments } from "@/types/comment";
 import { useFetchCurrentUserProfile } from "@/hooks/useFetchCurrentUserProfile";
 import Loading from "@/components/loading";
+import Cookies from "js-cookie";
+import Link from "next/link";
 
 export default function CreatePostPage() {
   const { id } = useParams();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState<Comments[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const accessToken = Cookies.get("access_token");
+    setIsLoggedIn(Boolean(accessToken));
+  }, []);
+
   const { user } = useFetchCurrentUserProfile();
 
   useEffect(() => {
@@ -45,7 +54,7 @@ export default function CreatePostPage() {
   }, [id]);
 
   const handleCommentAdded = (newComment: Comments) => {
-    setComments((prevComments) => [ newComment, ...prevComments]);
+    setComments((prevComments) => [newComment, ...prevComments]);
   };
 
   if (!post) {
@@ -63,7 +72,7 @@ export default function CreatePostPage() {
   return (
     <div className="w-full bg-gray-900 min-h-screen">
       <Navbar />
-     
+
       <div className="p-6 max-w-3xl mx-auto">
         <div
           className="animate-fade-in-slide-up"
@@ -93,24 +102,28 @@ export default function CreatePostPage() {
             </button>
             {isAuthorized && (
               <>
-              <button
-                onClick={() => window.location.href = `/main/posts/${post.id}/edit`}
-                className="mt-4 text-sm text-indigo-600 hover:underline ml-4 cursor-pointer"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => {
-                  if (confirm("Are you sure you want to delete this post?")) {
-                    api.delete(`/posts/${post.id}`).then(() => {
-                      window.location.href = "/main/posts";
-                    });
+                <button
+                  onClick={() =>
+                    (window.location.href = `/main/posts/${post.id}/edit`)
                   }
-                }}
-                className="mt-4 text-sm text-red-600 hover:underline ml-4 cursor-pointer"
-              >
-                Delete
-              </button>
+                  className="mt-4 text-sm text-indigo-600 hover:underline ml-4 cursor-pointer"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => {
+                    if (
+                      confirm("Are you sure you want to delete this post?")
+                    ) {
+                      api.delete(`/posts/${post.id}`).then(() => {
+                        window.location.href = "/main/posts";
+                      });
+                    }
+                  }}
+                  className="mt-4 text-sm text-red-600 hover:underline ml-4 cursor-pointer"
+                >
+                  Delete
+                </button>
               </>
             )}
           </Card>
@@ -119,9 +132,18 @@ export default function CreatePostPage() {
           className="mt-8 animate-fade-in-slide-up"
           style={{ animationDelay: "200ms" }}
         >
-           {loading && <Loading />}
+          {loading && <Loading />}
           <h2 className="text-xl font-semibold mb-4">Comments</h2>
-          <AddComment onCommentAdded={handleCommentAdded} />
+          {isLoggedIn ? (
+            <AddComment onCommentAdded={handleCommentAdded} />
+          ) : (
+            <p className="text-white">
+              You must be logged in to comment.{" "}
+              <Link href="/auth/login" className="text-blue-500 hover:underline">
+                Login here
+              </Link>
+            </p>
+          )}
           <br className="my-4" />
           {comments.map((comment: Comments) => {
             return <Comment key={comment.id} {...comment} />;

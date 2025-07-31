@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import api from "@/lib/axios";
 import { UserStats } from "@/types/user";
+import Cookies from "js-cookie";
 
 export function useFetchCurrentUserProfile() {
   const [user, setUser] = useState<UserStats | null>(null);
@@ -16,7 +17,10 @@ export function useFetchCurrentUserProfile() {
   }
 
   useEffect(() => {
-    fetchCurrentUserProfile();
+    const accessToken = Cookies.get("access_token");
+    if (accessToken) {
+      fetchCurrentUserProfile();
+    }
   }, []);
 
   return { user, refetch: fetchCurrentUserProfile };
