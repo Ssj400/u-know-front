@@ -25,6 +25,15 @@ export default function PostsPage() {
       <div className="p-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">All Posts</h1>
+          <select className="bg-gray-800 text-white p-2 rounded" name="categoryId"
+            id="categoryId"
+            required
+            >
+            <option value="" disabled>
+              Select a category
+            </option>
+          </select>
+        
           <AddPostButton />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
