@@ -5,8 +5,10 @@ import AddPostButton from "@/components/add-post-button";
 import { useFetchPosts } from "@/hooks/useFetchPosts";
 import Loading from "@/components/loading";
 import { useFetchCategories } from "@/hooks/useFetchCategories";
+import { useState } from "react";
 
 export default function PostsPage() {
+  const [categoryId, setCategoryId] = useState("");
   const { posts, error: postsError, loading: loadingPosts } = useFetchPosts();
   const { categories } = useFetchCategories();
 
@@ -23,11 +25,13 @@ export default function PostsPage() {
             name="categoryId"
             id="categoryId"
             required
-            value=""
-          > 
-            <option value="" disabled>
-              Select a category
-            </option>
+            value={categoryId}
+            onChange={(e) => {
+              setCategoryId(e.target.value)
+              console.log("Selected category:", e.target.value);
+            }}
+          >
+            <option value="">All Categories</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -37,7 +41,9 @@ export default function PostsPage() {
           <AddPostButton />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((post, index) => (
+          {posts.filter((post) => {
+            return categoryId === "" ? true : Number(post.categoryId) === Number(categoryId);
+          }).map((post, index) => (
             <div
               key={post.id}
               className="animate-fade-in-slide-up"
