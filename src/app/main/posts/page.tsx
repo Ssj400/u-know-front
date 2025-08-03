@@ -4,9 +4,11 @@ import Navbar from "@/components/navbar";
 import AddPostButton from "@/components/add-post-button";
 import { useFetchPosts } from "@/hooks/useFetchPosts";
 import Loading from "@/components/loading";
+import { useFetchCategories } from "@/hooks/useFetchCategories";
 
 export default function PostsPage() {
   const { posts, error: postsError, loading: loadingPosts } = useFetchPosts();
+  const { categories } = useFetchCategories();
 
   return (
     <div className="bg-gray-900 min-h-screen">
@@ -21,10 +23,16 @@ export default function PostsPage() {
             name="categoryId"
             id="categoryId"
             required
-          >
+            value=""
+          > 
             <option value="" disabled>
               Select a category
             </option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
           </select>
           <AddPostButton />
         </div>
