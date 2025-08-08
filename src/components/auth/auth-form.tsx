@@ -37,16 +37,36 @@ export default function AuthForm({ isLogin }: AuthFormProps) {
         
       }
     } catch (error) {
+      let message = 'An unexpected error occurred. Please try again.';
 
       if (typeof error === 'object' && error !== null && 'response' in error) {
-        const err = error as { response: { status: number; data: { message: string } } };
-        const errorMessage = String(err.response.data.message);
+        const err = error as { response: { status: number; data: { message: string | string[] } } };
+        const { status, data } = err.response;
+        const serverMessage = data.message;
 
-        setError((errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1)));
+        if (isLogin) {
+          if (status === 401 || status === 404) {
+            message = 'Invalid credentials. Please check your email and password.';
+          } else if (serverMessage) {
+            message = Array.isArray(serverMessage) ? serverMessage.join('. ') : String(serverMessage);
+          }
+        } else {
+          if (status === 409) {
+            message = 'A user with this email already exists.';
+          } else if (status === 400 && serverMessage) {
+            if (Array.isArray(serverMessage)) {
+              message = serverMessage.map((msg) => msg.charAt(0).toUpperCase() + msg.slice(1)).join('. ');
+            } else {
+              message = String(serverMessage).charAt(0).toUpperCase() + String(serverMessage).slice(1);
+            }
+          } else if (serverMessage) {
+            message = Array.isArray(serverMessage) ? serverMessage.join('. ') : String(serverMessage);
+          }
+        }
       } else {
         console.error('Request failed:', error);
-        setError('An unexpected error occurred');
       }
+      setError(message);
     }
   }
 
