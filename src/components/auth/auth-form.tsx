@@ -26,6 +26,14 @@ export default function AuthForm({ isLogin }: AuthFormProps) {
       setError('Passwords do not match');
       return;
     }
+    if (!email || !password || (!isLogin && !nickname)) {
+      setError('Please fill in all required fields');
+      return;
+    }
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long');
+      return;
+    }
     const data = isLogin ? { email, password } : { nickname, email, password };
 
     try {
