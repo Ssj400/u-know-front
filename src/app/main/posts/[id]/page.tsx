@@ -98,7 +98,7 @@ export default function CreatePostPage() {
               onClick={() => window.history.back()}
               className="mt-4 text-sm text-indigo-600 hover:underline cursor-pointer"
             >
-              Back
+              Go Back
             </button>
             {isAuthorized && (
               <>
