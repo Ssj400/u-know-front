@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# U-Know — Frontend
 
-## Getting Started
+Frontend for the U-Know knowledge-sharing platform. Built with Next.js (App Router), TypeScript, and Tailwind CSS. It implements the UI and client-side logic to interact with the U-Know backend API.
 
-First, run the development server:
+What you'll find here:
+- A modular component-based UI for posts, profiles, and user management
+- Auth flow with short-lived access tokens and HTTP-only refresh tokens
+- Custom hooks for fetching and caching API data
+
+## Quick Start
+
+Prerequisites:
+- Node.js (LTS recommended)
+- A running `u-know-back` API instance
+
+Installation:
+
+```bash
+git clone https://github.com/your-username/u-know-front.git
+cd u-know-front
+npm install
+```
+
+Environment:
+Create `.env.local` in the project root with at least:
+
+```env
+NEXT_PUBLIC_API_URL="http://localhost:3000"
+```
+
+Run (development):
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:5500](http://localhost:3000) with your browser to see the result.
+Build (production):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm run start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Linting:
 
-## Learn More
+```bash
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js (App Router) + TypeScript
+- Tailwind CSS for styling
+- Axios for HTTP requests (centralized instance in `src/lib`)
+- React Hook Form + Zod for forms & validation
+- Small, custom UI components and Heroicons
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Key Features
 
-## Deploy on Vercel
+- Authentication with access + HTTP-only refresh tokens
+- Automatic token refresh via Axios interceptors
+- Protected routes and auth helpers (`useAuthRedirect`, etc.)
+- Reusable hooks for data fetching (`useFetchPosts`, `useFetchUsers`, ...)
+- Responsive, mobile-first UI
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Layout (high level)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app` — Next.js App Router pages and layouts
+- `src/components` — Reusable UI and feature components
+- `src/hooks` — Custom hooks for data fetching and behaviour
+- `src/lib` — Shared utilities (Axios instance, helpers)
+- `src/types` — TypeScript types for API models
+
+## Authentication (concise)
+
+1. User logs in / registers. Backend returns an `access_token` in the response and sets a `refresh_token` as an HTTP-only cookie.
+2. The client stores the `access_token` (in a non-HTTP-only cookie) and attaches it to `Authorization` headers.
+3. Axios interceptors handle `401` responses by calling the refresh endpoint. The browser sends the `refresh_token` cookie automatically.
+4. On successful refresh, the new `access_token` is stored and the original request is retried.
+5. On logout the client clears stored tokens and notifies the backend to invalidate the refresh token.
+
+Implementation notes:
+- Token refresh is centralized in `src/lib/axios.ts`.
+- Hooks like `useAuthRedirect` and `useFetchCurrentUserProfile` simplify protecting routes and accessing user data.
+
+## Available Scripts
+
+- `npm run dev` — start development server
+- `npm run build` — build for production
+- `npm run start` — start production server
+- `npm run lint` — run ESLint
+
+## Development Tips
+
+- Keep the backend running and set `NEXT_PUBLIC_API_URL` to its base URL.
+- Use your browser's devtools to inspect cookies (refresh token is HTTP-only and won't be visible to JS).
+- For local testing, ensure CORS and cookie domain settings on the backend permit requests from `localhost`.
+
+## Contributing
+
+Contributions are welcome. Please open issues or PRs for fixes and improvements. Follow the existing code patterns (feature folders, hooks, and small reusable components).
+
+## License
+
+See the repository `LICENSE` file.
+
+---
